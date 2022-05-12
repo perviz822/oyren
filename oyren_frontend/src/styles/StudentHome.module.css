@@ -1,0 +1,116 @@
+body{
+    padding:10px;
+}
+.menu{
+    z-index: 2;
+    display:flex;
+    flex-direction: column;
+    position: relative;
+    left:0;
+    transition: 1s all; 
+}
+.menu div{
+    transition: 1s all;
+    height:4px;
+    width:24px;
+    background:#9C9B9B;
+}
+.menu :not(:first-child){
+margin-top:4px;
+
+}
+.profile_section{
+    display: flex;
+    flex-direction: row;
+}
+.header{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.input_section{
+    margin-top:100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+.input_section input{
+    padding:0px 5px 0px 5px;
+    width:70%;
+    height:30px;
+}
+.input_section img{
+    margin-left:5px;
+}
+.books{
+    
+    margin:auto;
+    display: block;
+
+}
+
+
+.line1_tranformed{
+    position: absolute;
+    top:3px;
+    transform: rotate(225deg);
+}
+.line2_transformed{
+    top:-1px;
+    position: absolute;
+    transform:rotate(-225deg);
+}
+.menu_transformed{
+    left:0;
+  
+}
+.left_menu{
+    z-index: 1;
+    top:0;
+    position: absolute;
+    width:50%;
+    height:100%;
+    background: #D7EFFD;
+    left:-50%;
+    transition: 1s all;
+ 
+}
+.left_menu_transformed{
+    left:0;
+   
+}
+
+/* from teacher_home.js*/
+
+.create_class_button{
+   position: relative;
+   top:10px;
+    width:104px;
+    height:32px;
+    background: black;
+    border-radius: 5px;
+    font-family: 'Roboto';
+    color:white;
+    font-size:15px;
+    border-style: none;
+    margin:auto;
+    display: block;
+
+}
+.add_class{
+    position: relative;
+    top:25px;
+    margin:auto;
+    display: block;
+
+}
+
+/* from teacher_home.js*/
+
+
+
+

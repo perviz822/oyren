@@ -1,0 +1,50 @@
+
+
+body{
+    padding:0;
+}
+.container{
+    padding:0;
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    list-style: none;
+   
+}
+.container li{
+    padding:5px;
+    width:100%;
+    height:36px;
+    color:white
+}
+
+.container li:nth-child(1){
+    background :#949494;
+
+}
+
+.container li:nth-child(2){
+    background :#606060;
+
+}
+.container li:nth-child(3){
+    background :#272727;
+
+}
+.container li:nth-child(4){
+    background :#131313;
+
+}
+.container li:nth-child(5){
+    background :#000000;
+
+}
+.container li:not(:first-child){
+    margin-top:15px;
+}
+.container li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
