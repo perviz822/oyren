@@ -10,22 +10,19 @@ const Register = ()=>{
         if(e.target[1].value !==e.target[2].value){
             alert("Passwords do not match")
             return;
-        }
-        
+        }   
          let data={
             'email':e.target[0].value,
             'password':e.target[1].value,
             'name':e.target[3].value,
             'surname':e.target[4].value,
             'is_teacher':false
-
         }
         axios.post('http://127.0.0.1:8000/oyren/register/',data) 
         .then((res)=>{
             alert("Succesfully registered , go back  to login")
         })
     }
-
     return (
         <>
        <div className={Style.container}>
@@ -33,7 +30,6 @@ const Register = ()=>{
        <img className ={Style.logo} src={logo}></img>
        <img className={Style.background} src={register}></img>
        </div>
-
 <div  className={Style.inputContainer}>
     <form onSubmit={registerUser} className={Style.form2}>
          <input type='email'  placeholder="Email"/>
@@ -46,11 +42,7 @@ const Register = ()=>{
     </form>  
 </div>
       </div>
-
-
         </>
     )
-
 }
-
 export  default Register

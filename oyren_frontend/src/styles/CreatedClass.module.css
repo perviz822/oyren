@@ -9,11 +9,12 @@ body{
     display:flex;
     flex-direction: column;
     list-style: none;
+    align-items: center;
    
 }
 .container li{
     padding:5px;
-    width:100%;
+    width:80%;
     height:36px;
     color:white
 }

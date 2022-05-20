@@ -7,19 +7,18 @@ from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin, BaseUs
 
 
 
+def upload_to(instance,filename):
+    return 'images/{filename}'.format(filename=filename)
 
-class File (models.Model):
-    name=models.CharField(max_length=255);  
-
+class Class (models.Model):
+    key=models.CharField(max_length=256,unique=True);
+    name=models.CharField(max_length=256);
     def __str__(self):
         return self.name;
 
-
-
-
-class Class (models.Model):
-    name=models.CharField(max_length=256);
-    files=models.ManyToManyField(File);
+class File (models.Model):
+    
+    class_name=models.ForeignKey(Class,on_delete=models.CASCADE)
     def __str__(self):
         return self.name;
 
@@ -32,7 +31,7 @@ class CustomUserManager(BaseUserManager,):
                 if other_fields.get('is_staff') is not True:
                     raise ValueError('super  user must be assigned to is_staff= True')
                 if other_fields.get('is_superuser') is not True:
-                    raise ValueError('Super user must be assigned to is_super_user=True')
+                  raise ValueError('Super user must be assigned to is_super_user=True')
                 return self.create_user(email,name,surname, password,**other_fields)   
 
 
@@ -46,9 +45,6 @@ class CustomUserManager(BaseUserManager,):
          return user;
 
      
-
-
-
 class NewUser(AbstractBaseUser,PermissionsMixin):
         email=models.EmailField(max_length=255,unique=True,default=NULL,)
         name=models.CharField(max_length=255)
@@ -65,15 +61,22 @@ class NewUser(AbstractBaseUser,PermissionsMixin):
             return self.name
 
 
-
-
-
 class Request(models.Model):
     requested_class=models.ForeignKey(Class,on_delete=models.CASCADE)
     requesting_student=models.ForeignKey(NewUser,on_delete=models.CASCADE)  
 
     def __str__(self):
         return self.requesting_student.name
+
+
+class Images(models.Model):
+    image=models.ImageField(upload_to=upload_to) 
+
+
+class Url(models.Model):
+    class_name=models.ForeignKey(Class,on_delete=models.CASCADE)
+    url=models.URLField(max_length=3000)    
+
 
 
 

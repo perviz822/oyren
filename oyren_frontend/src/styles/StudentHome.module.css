@@ -108,6 +108,28 @@ margin-top:4px;
     display: block;
 
 }
+.form{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform :translate(-50%,-50%);
+}
+.form button{
+    padding:10px;
+    background:black;
+    color:white;
+    border-style: none;
+    border-radius:5px;
+    font-family: 'Roboto';
+}
+.form input{
+    font-family: 'Roboto';
+}
+
+.form :not(:first-child) {
+    margin-left:10px;
+
+}
 
 /* from teacher_home.js*/
 

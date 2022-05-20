@@ -9,6 +9,7 @@ import Class from './Class'
 import { useLocation, useNavigate } from 'react-router'
 import CreateClass from './CreateClass'
 import { useMemo } from 'react'
+import Send_file from './Send_file'
 
 const TeacherHome=()=>{
 const  history= useNavigate();
@@ -17,8 +18,11 @@ const  location_object=useMemo(()=>location,[])
 const[is_toggled,set_toggled]= useState(false)
 const[is_create_class_toggled,set_is_create_class_toggled]= useState(false)
 const[is_class_created,set_is_class_created]= useState(false)
+const[is_url_added,set_url_added]=useState(false)
+const [created_class_id,set_created_class_id]=useState('')
 console.log("rendered")
-console.log(location_object)
+console.log([is_class_created,is_url_added])
+
 
 const toggle=()=>{
     set_toggled(!is_toggled)
@@ -62,22 +66,25 @@ else{
 
  {/*user_name */}
   <div className={Style.profile_section}>
-     <img src={profile_src} />   <div> {location_object.state.name}<img src={tick_src} /></div>
+     <img src={profile_src} />   <div> <img src={tick_src} /></div>
   </div>
 {/*user_name */}
         </header>
       </div>
 
-     {!is_class_created &&  <CreateClass  set_is_class_created={set_is_class_created} is_create_class_toggled={is_create_class_toggled}/>
-}
-    {is_class_created  &&  <Class />}
-{/*background image */}
-   {!is_class_created   &&  <img  onClick ={createClass} className={Style.add_class} src={add_class_src}></img> }
-{/*background image */}  
+     {!is_class_created &&  <CreateClass set_created_class_id={set_created_class_id}  set_is_class_created={set_is_class_created} is_create_class_toggled={is_create_class_toggled}/>
 
-<Routes>
-<Route path={'teacher_home_page/class'} element={<CreateClass/>} /> 
-</Routes> 
+
+}
+    {is_class_created && !is_url_added &&  <Class set_url_added={set_url_added} />}
+
+
+   {is_url_added && <Send_file  set_url_added={set_url_added} is_url_added={is_url_added} id={created_class_id}/>}
+   {/*background image */}
+   {!is_class_created   &&  <img  onClick ={createClass} className={Style.add_class} src={add_class_src}></img> }
+   {/*background image */}  
+
+
         </>
 
     )

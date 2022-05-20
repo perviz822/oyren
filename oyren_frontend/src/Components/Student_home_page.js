@@ -5,13 +5,20 @@ import Style from '../styles/StudentHome.module.css'
 import books_src from '../images/books.png'
 import { useState } from 'react'
 import { useLocation } from 'react-router'
+import { useRef } from 'react'
+import GetClasses from './GetClasses'
 
 const Student_home_page=()=>{
 const[is_toggled,set_toggled]= useState(false)
+const[is_content_searched,set_is_content_searched]=useState(false);
+const inputEl=useRef(null);
 const location =useLocation()
 
 const toggle=()=>{
     set_toggled(!is_toggled)
+}
+const bring_content=()=>{
+    set_is_content_searched(true);
 }
 
 let line1_class = is_toggled ? Style.line1_tranformed :Style.line1
@@ -53,10 +60,13 @@ else{
 
 
     <div class={Style.input_section}>
-        <input placeholder="Enter the class id" />
-        <img src ={magnifier_src}></img>
+        <input ref={inputEl} placeholder="Enter the class id" />
+        <img onClick={bring_content} src ={magnifier_src}></img>
     </div>
     <img className={Style.books} src={books_src}></img>
+
+    {is_content_searched &&  <GetClasses student_id={localStorage.getItem('user')} key_name={inputEl.current.value} />}
+
         </>
 
     )

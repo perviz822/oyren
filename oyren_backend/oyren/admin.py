@@ -3,6 +3,10 @@ from django.contrib.auth.admin import UserAdmin
 from oyren.models import( NewUser,Class,File)
 from django.forms import Textarea
 
+from oyren.models import Request
+from oyren.models import Images
+from oyren.models import Url
+
 
 
 class UserAdminConfig(UserAdmin):
@@ -27,5 +31,9 @@ class UserAdminConfig(UserAdmin):
 admin.site.register(NewUser,UserAdminConfig)
 admin.site.register(Class)
 admin.site.register(File)
+admin.site.register(Request)
+admin.site.register(Images)
+admin.site.register(Url)
+
 
 # Register your models here.

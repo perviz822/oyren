@@ -31,6 +31,7 @@ return res;
                  }
             axios.get(`${BASE_URL}/get_user_details/`,config)
             .then((res)=>{
+                localStorage.setItem('user',res.data.id)
              if (res.data.is_teacher){
                 history('/teacher_home_page',{state:{name:res.data.user}})
                 return res
@@ -38,27 +39,21 @@ return res;
              else{
                  history('/student_home_page',{state:{name:res.data.user}})
              }
-               
-               
+        
             })
           
         })
         .catch((res)=>{
             alert("USER CREDENTIALS DID NOT MATCH")
         })
-
     }
-
     return (
         <>
       <div className={Style.container}>
-
        <div className={Style.logoContainer}>
        <img className ={Style.logo} src={logo}></img>
        <img className={Style.background} src={register}></img>
        </div>
-
-
 <div className={Style.inputContainer}>
     <p  className={Style.welcome}>
         WELCOME TO THE  <br />
@@ -71,7 +66,7 @@ return res;
         <button type='submit'>Log In</button>
         <div className={Style.links}>  
          <Link to={'/register_as_student'}>  <a>Register as student</a></Link>
-         <Link to={'/register_as_teacher'}>  <a>Register as teachet</a></Link>
+         <Link to={'/register_as_teacher'}>  <a>Register as teacher</a></Link>
         </div> 
     </form>
    
