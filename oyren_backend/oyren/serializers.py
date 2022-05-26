@@ -16,7 +16,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model=Class
-        fields=['name','key','id']
+        fields=['name','key']
          
 
 class ImageSerializer(serializers.ModelSerializer)  :
@@ -30,9 +30,15 @@ class Urlserializer(serializers.ModelSerializer):
         fields=['class_name', 'url']
 
 class RequestSerializer(serializers.ModelSerializer):
+    student_name=serializers.SerializerMethodField()
     class Meta:
         model=Request;
-        fields=['requested_class','requesting_student']
+        fields=['requested_class','requesting_student','student_name']
+
+    def get_student_name(self,obj):
+        student_name=obj.requesting_student.name
+        return  student_name;
+
 
 
      

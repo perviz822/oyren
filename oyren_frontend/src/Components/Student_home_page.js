@@ -8,16 +8,20 @@ import { useLocation } from 'react-router'
 import { useRef } from 'react'
 import GetClasses from './GetClasses'
 
+
 const Student_home_page=()=>{
 const[is_toggled,set_toggled]= useState(false)
+const inputEl=useRef(null)
 const[is_content_searched,set_is_content_searched]=useState(false);
-const inputEl=useRef(null);
+const[refresh_state,refresh]=useState(false)
+;
 const location =useLocation()
 
 const toggle=()=>{
     set_toggled(!is_toggled)
 }
 const bring_content=()=>{
+    refresh(!refresh_state)
     set_is_content_searched(true);
 }
 
@@ -39,7 +43,6 @@ else{
     return(
         <>
 
-
 <div className={Style.left_menu  +  " " + left_menu_transformed}>
 </div>
       <div class={Style.header}>
@@ -49,29 +52,26 @@ else{
         </div>
         <header>
 
-
            <div className={Style.profile_section}>
 <img src={profile_src} />   <div> {location.state.name}<img src={tick_src} /></div>
            </div>
         </header>
 
-
       </div>
-
-
     <div class={Style.input_section}>
         <input ref={inputEl} placeholder="Enter the class id" />
         <img onClick={bring_content} src ={magnifier_src}></img>
     </div>
-    <img className={Style.books} src={books_src}></img>
-
-    {is_content_searched &&  <GetClasses student_id={localStorage.getItem('user')} key_name={inputEl.current.value} />}
+    {!is_content_searched &&  <img className={Style.books} src={books_src}></img>}
+    {is_content_searched &&  
+    <GetClasses 
+     searched_class={inputEl.current.value}
+     student_id={localStorage.getItem('user')}
+     key_name={inputEl.current.value} />}
 
         </>
 
     )
 }
-
-
 
 export default Student_home_page

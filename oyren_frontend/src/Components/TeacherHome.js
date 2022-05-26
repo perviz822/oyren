@@ -10,6 +10,11 @@ import { useLocation, useNavigate } from 'react-router'
 import CreateClass from './CreateClass'
 import { useMemo } from 'react'
 import Send_file from './Send_file'
+import ClassList from './ClassList'
+import { useEffect } from 'react'
+import axios from 'axios'
+import BASE_URL from './axios'
+import { config } from './axios'
 
 const TeacherHome=()=>{
 const  history= useNavigate();
@@ -19,17 +24,19 @@ const[is_toggled,set_toggled]= useState(false)
 const[is_create_class_toggled,set_is_create_class_toggled]= useState(false)
 const[is_class_created,set_is_class_created]= useState(false)
 const[is_url_added,set_url_added]=useState(false)
-const [created_class_id,set_created_class_id]=useState('')
-console.log("rendered")
-console.log([is_class_created,is_url_added])
+const[created_class_id,set_created_class_id]=useState('')
+const[dynamic_routes,set_dynamic_routes] =  useState([])
+
+console.log(dynamic_routes)
 
 
 const toggle=()=>{
     set_toggled(!is_toggled)
 }
 const createClass=()=>{
+    set_is_class_created(false)
     set_is_create_class_toggled(!is_create_class_toggled)
-    history('/teacher_home_page/class')
+  
 }
 
 let line1_class = is_toggled ? Style.line1_tranformed :Style.line1
@@ -46,12 +53,27 @@ else{
     transformed= ' '
     left_menu_transformed= ' '    
 }
+useEffect(()=>{
+  axios.get(`${BASE_URL}/get_classes_for_teacher/`,config)
+  .then((res)=>{
+    set_dynamic_routes(
+      res.data.map(element=> <Route path={`*/list_of_classes/${element.name}/*`} element={<Class  class_name={element.name}/>} />)
+    )
+
+  })
+},[JSON.stringify(dynamic_routes)])
 
     return(
         <>
 
 {/*left menu bar */}
- <div className={Style.left_menu  +  " " + left_menu_transformed}> {/*adding and removing class on toggle*/}
+ <div className={Style.left_menu  +  " " + left_menu_transformed}>
+     <Link style={{marginLeft:'50px',position:'relative',top:'30px'}} to={'*/list_of_classes'}> Classes </Link> 
+     <Routes>
+       <Route path={'*/list_of_classes'} element={<ClassList />}></Route>
+      
+     </Routes>
+      {/*adding and removing class on toggle*/}
 </div>
 {/*left menu bar */}
 
@@ -72,18 +94,28 @@ else{
         </header>
       </div>
 
-     {!is_class_created &&  <CreateClass set_created_class_id={set_created_class_id}  set_is_class_created={set_is_class_created} is_create_class_toggled={is_create_class_toggled}/>
+
+      <Routes> 
+        {dynamic_routes}
+      </Routes>
+
+
+
+
+     {!is_class_created &&  <CreateClass set_created_class_id={set_created_class_id} 
+      set_is_class_created={set_is_class_created}
+      is_create_class_toggled={is_create_class_toggled}
+      />
 
 
 }
-    {is_class_created && !is_url_added &&  <Class set_url_added={set_url_added} />}
-
-
-   {is_url_added && <Send_file  set_url_added={set_url_added} is_url_added={is_url_added} id={created_class_id}/>}
+  
    {/*background image */}
-   {!is_class_created   &&  <img  onClick ={createClass} className={Style.add_class} src={add_class_src}></img> }
+      <img  onClick ={createClass} className={Style.add_class} src={add_class_src}></img> 
+ 
    {/*background image */}  
 
+  
 
         </>
 

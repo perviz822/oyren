@@ -13,7 +13,8 @@ list_of_classes,
 create_url,
 handle_class_request,
 get_class_requests,
-assing_student_to_class)
+assing_student_to_class,
+get_classes_for_teacher)
 from  django.conf.urls.static import static
 
 urlpatterns = [
@@ -26,7 +27,9 @@ urlpatterns = [
   path('create_url/',create_url),
   path('handle_class_request/',handle_class_request),
   path('get_class_requests/',get_class_requests),
-  path('assign_student_to_class/',assing_student_to_class)
+  path('assign_student_to_class/',assing_student_to_class),
+  path('get_classes_for_teacher/',get_classes_for_teacher),
+
 
 ]
 

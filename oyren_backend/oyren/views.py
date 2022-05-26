@@ -43,21 +43,25 @@ def get_user_details(request):
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def create_class(request):
+    instance=NewUser.objects.get(id=request.user.id)
     serializer=ClassSerializer(data=request.data);
     if serializer.is_valid():
-     instance=serializer.save();
-     instance.save();
+     class_instance=serializer.save();
+     instance.classes.add(class_instance);
      data={
-         'id':instance.id
+         'id':class_instance.id
      }
     return  JsonResponse(data)
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def list_of_classes(request):
-    instances=Class.objects.all().filter(key=request.data['key']);
-    serializer=ClassSerializer(instances,many=True);
-    return JsonResponse(serializer.data,safe=False);
+    instance=Class.objects.get(key=request.data['key'])
+    data={
+        'name':instance.name,
+        'id':instance.id
+    }
+    return JsonResponse(data);
 
 
 @api_view(['POST'])
@@ -89,15 +93,16 @@ def handle_class_request(request):
         
         return JsonResponse(data)
     else:
-        print('serializer is not valid') 
-        print(serializer.er)   
-    return HttpResponse("something went wrong")   
+        print('serializer is not valid')    
+    return Response(status=500)   
 
-@api_view(['GET'])  
+@api_view(['POST'])  
 @permission_classes([permissions.IsAuthenticated])
 def get_class_requests(request):
-    instances=Request.objects.all().filter(class_name=request.data['class_name'])
-    serializer=RequestSerializer(instances,many=True)
+    class_instance=Class.objects.all().filter(name=request.data['class_name'])
+    instances=Request.objects.all().filter(requested_class=class_instance[0].id)
+    serializer=RequestSerializer(instances,many=True,context={'request':request})
+    
     return JsonResponse(serializer.data,safe=False)
 
 @api_view(['GET']) 
@@ -105,6 +110,23 @@ def get_class_requests(request):
 def assing_student_to_class (request):
     student=NewUser.objects().all().filter(id=request.data['student_id'])
     class_name=Class.objects().all().filter(id=request.data['class_id'])
+
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_classes_for_teacher(request):
+    instance=NewUser.objects.all().filter(id=request.user.id);
+    print(instance)
+    class_instances=instance[0].classes.all();
+    print(class_instances)
+    serializer=ClassSerializer(class_instances,many=True);
+    print(serializer.data)
+    return JsonResponse(serializer.data,safe=False);
+
+
+
+
 
 
 

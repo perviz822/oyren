@@ -1,21 +1,27 @@
 import Style from '../styles/CreatedClass.module.css'
 import add_icon_src from '../images/add_icon.png'
-import {Link} from 'react-router-dom'
+import {Link,Route,Routes} from 'react-router-dom'
+import ClassRequests from './ClassRequests'
 const  Class = (props)=>{
+    console.log('classrendered')
     const set_url_added= ()=>{
         props.set_url_added(true)
     }
-    return (
+    return (    
         <>
-        <p>Classname</p>
+        <p>{props.class_name}</p>
      <ul className={Style.container}>
-         <li>Files <img src={add_icon_src}  /></li>
-         <li>Notes  <img src={add_icon_src}/>  </li>
-         <li>Videos <img onClick={set_url_added} src={add_icon_src}/></li> 
-         <li>Students</li>
-         <li>Class requests </li>
-      
+         <li><Link to={'/add_notes'}> Notes </Link> <img src={add_icon_src}/>  </li>
+         <li> <Link to={'/add_video'}> Videos </Link>  <img onClick={set_url_added} src={add_icon_src}/></li> 
+       
+         <li> <Link to={'*/class_requests'}>   Class requests </Link></li>
+     
      </ul>
+     <Routes>
+         <Route  path={`*/class_requests`} element={<ClassRequests class_name={props.class_name} />}/>
+     </Routes>
+
+
         </>
     )
 }

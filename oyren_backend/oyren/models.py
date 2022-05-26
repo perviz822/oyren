@@ -1,6 +1,7 @@
 
 from asyncio.windows_events import NULL
 from http.cookiejar import FileCookieJar
+from pickle import TRUE
 from django.db import  models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin, BaseUserManager
@@ -16,8 +17,7 @@ class Class (models.Model):
     def __str__(self):
         return self.name;
 
-class File (models.Model):
-    
+class File (models.Model): 
     class_name=models.ForeignKey(Class,on_delete=models.CASCADE)
     def __str__(self):
         return self.name;

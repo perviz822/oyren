@@ -135,4 +135,66 @@ margin-top:4px;
 
 
 
+.class{
+    position: relative;
+    top:40px;
+    width:239px;
+    height:178px;
+    background:white;
+    border-radius:5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin:auto;
+    border:1px solid black;
+}
+
+.class p{
+    padding:5px;
+    font-family: 'Roboto';
+    background: white;
+    width:224px;
+    height:32px;
+   
+
+}
+.class button{
+    width:107px;
+    height:26px;
+    background:#63A7E7;
+    color:white;
+    font-size:12px;
+    padding:5px;
+    margin-top:70px;
+    border:none;
+    border-radius:5px;
+    font-family: 'Roboto';
+
+   
+  
+
+
+}
+
+
+.list{
+    position: relative;
+    top:40px;
+    display: flex;
+    flex-direction: column;
+}
+a{
+    text-decoration: none;
+    color:black;
+}
+.list > a:not(:first-child){
+    margin-top: 5px;
+   
+  
+}
+.list >a{
+   
+    font-family: 'Roboto';
+ 
+}
 

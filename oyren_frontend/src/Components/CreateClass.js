@@ -21,7 +21,8 @@ const  CreateClass=(props)=>{
         .then((res)=>{
             console.log(res.data)
             props.set_created_class_id(res.data.id);
-            props.set_is_class_created(true);
+            props.set_is_class_created(!props.is_class_created);
+            alert('class succesfully created')
         })
 
 

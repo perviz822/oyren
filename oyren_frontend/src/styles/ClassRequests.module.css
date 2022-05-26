@@ -1,0 +1,41 @@
+.request_container{
+    display:flex;
+    width:100%;
+    flex-direction: column;
+    
+}
+.request_container div:not(:first-child){
+    margin-top:5px;
+}
+.request_container >div{
+    padding:10px;
+    margin:auto;
+    width:80%;
+    border:1px solid black;
+    color:black;
+
+
+}
+.request_container div p{
+    font-family: 'Roboto';
+    font-size:16px;
+
+}
+
+.request_container div div button{
+    font-family: 'Roboto';
+    width:79px;
+    height:25px;
+    font-size:12px;
+    border-radius:5px;
+    color:White;
+    border-style: none;
+}
+.request_container >div >div button:nth-child(1){
+   
+    background:#63A7E7;
+   
+}
+.request_container >div> div button:nth-child(2){
+    background:rgb(206, 51, 51)
+}

@@ -18,6 +18,7 @@ const Login = ()=>{
         .then((res)=>{
             localStorage.setItem('access_token',res.data.access)
             localStorage.setItem('refresh_token',res.data.refresh)
+            console.log(localStorage.getItem('access_token'))
            
 return res;
         })
