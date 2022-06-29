@@ -42,7 +42,7 @@ const  GetClasses=(props)=>{
                
             )
         })  
-    },[props.searched_class])
+    },[])
 
     return (
         <>

@@ -7,6 +7,14 @@ import { useState } from 'react'
 import { useLocation } from 'react-router'
 import { useRef } from 'react'
 import GetClasses from './GetClasses'
+import { useEffect } from 'react'
+import Student_class from './Student_Class'
+import axios from 'axios'
+import BASE_URL from './axios'
+import { config } from './axios'
+import ClassList from './ClassList'
+import{Routes,Route,Link} from 'react-router-dom'
+
 
 
 const Student_home_page=()=>{
@@ -14,8 +22,28 @@ const[is_toggled,set_toggled]= useState(false)
 const inputEl=useRef(null)
 const[is_content_searched,set_is_content_searched]=useState(false);
 const[refresh_state,refresh]=useState(false)
+const [dynamic_routes,set_dynamic_routes] =  useState([]);
+
+
+
+
 ;
 const location =useLocation()
+
+
+useEffect(()=>{
+    axios.get(`${BASE_URL}/get_classes_for_student/`,config)
+    .then((res)=>{
+      console.log(res.data)
+      set_dynamic_routes(
+        res.data.map(element=> <Route path={`*/list_of_classes/${element.name}/*`} element={<Student_class   class_id ={element.class_id} class_name={element.name}/>} />)
+      )
+  
+    })
+    
+    
+
+},[])
 
 const toggle=()=>{
     set_toggled(!is_toggled)
@@ -44,6 +72,11 @@ else{
         <>
 
 <div className={Style.left_menu  +  " " + left_menu_transformed}>
+<Link style={{marginLeft:'50px',position:'relative',top:'30px'}} to={'*/student_home_page/list_of_classes'}> Classes </Link> 
+
+      <Routes>
+       <Route path={'*/student_home_page/list_of_classes'} element={<ClassList position='student' />}></Route>  
+     </Routes>
 </div>
       <div class={Style.header}>
       <div onClick={toggle}  className={menu_class + ' ' + transformed}>
@@ -53,16 +86,22 @@ else{
         <header>
 
            <div className={Style.profile_section}>
-<img src={profile_src} />   <div> {location.state.name}<img src={tick_src} /></div>
+<img src={profile_src} />   <div><img src={tick_src} /></div>
            </div>
         </header>
+        
 
       </div>
+      <Routes>
+   {dynamic_routes}
+   </Routes>
     <div class={Style.input_section}>
         <input ref={inputEl} placeholder="Enter the class id" />
         <img onClick={bring_content} src ={magnifier_src}></img>
     </div>
+   
     {!is_content_searched &&  <img className={Style.books} src={books_src}></img>}
+  
     {is_content_searched &&  
     <GetClasses 
      searched_class={inputEl.current.value}

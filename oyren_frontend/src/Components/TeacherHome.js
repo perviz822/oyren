@@ -56,8 +56,9 @@ else{
 useEffect(()=>{
   axios.get(`${BASE_URL}/get_classes_for_teacher/`,config)
   .then((res)=>{
+    console.log(res.data)
     set_dynamic_routes(
-      res.data.map(element=> <Route path={`*/list_of_classes/${element.name}/*`} element={<Class  class_name={element.name}/>} />)
+      res.data.map(element=> <Route path={`*/list_of_classes/${element.name}/*`} element={<Class   class_id ={element.class_id} class_name={element.name}/>} />)
     )
 
   })
@@ -67,11 +68,10 @@ useEffect(()=>{
         <>
 
 {/*left menu bar */}
- <div className={Style.left_menu  +  " " + left_menu_transformed}>
+ <div className={Style.left_menu  +  " " +  left_menu_transformed}>
      <Link style={{marginLeft:'50px',position:'relative',top:'30px'}} to={'*/list_of_classes'}> Classes </Link> 
      <Routes>
-       <Route path={'*/list_of_classes'} element={<ClassList />}></Route>
-      
+         <Route path={'*/list_of_classes'} element={<ClassList position='teacher' />}></Route>
      </Routes>
       {/*adding and removing class on toggle*/}
 </div>

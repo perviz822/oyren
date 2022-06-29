@@ -9,13 +9,14 @@ import Style from '../styles/StudentHome.module.css'
 
 
 const ClassList =(props)=>{
+  console.log('classlist is rendered')
     const[list_of_classes,set_list_of_classes]=useState([]);
     console.log(config.headers.Authorization)
   useEffect(()=>{
-    axios.get(`${BASE_URL}/get_classes_for_teacher/`,config)
+    axios.get(`${BASE_URL}/get_classes_for_${props.position}/`,config)
     .then((res)=>{
      set_list_of_classes(
-         res.data.map(element=> <Link to ={`/teacher_home_page/*/list_of_classes/${element.name}`}>{element.name}</Link>)
+         res.data.map(element=> <Link to ={`/${props.position}_home_page/*/list_of_classes/${element.name}`}>{element.name}</Link>)
      )     
     })
 

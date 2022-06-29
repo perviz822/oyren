@@ -6,20 +6,20 @@ import { useLocation ,useNavigate} from "react-router";
 
 
 const Send_file=(props)=>{
+    console.log(`The file is to be sent  to the class  + ${props.class_name}`)
     const history =  useNavigate();
 
-    console.log(props.id)
+    console.log(props.class_id)
     const send_data=(e)=>{
         e.preventDefault();
         let data={
-            'class_name':props.id,
+            'class_name':props.class_id,
             'url':e.target[0].value
         }
         axios.post(`${BASE_URL}/create_url/`,data,config)
         .then(()=>{
-            props.set_url_added(!props.is_url_added);
            
-
+           
         })
         
        

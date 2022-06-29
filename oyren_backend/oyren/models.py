@@ -5,8 +5,7 @@ from pickle import TRUE
 from django.db import  models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin, BaseUserManager
-
-
+from django.conf import settings
 
 def upload_to(instance,filename):
     return 'images/{filename}'.format(filename=filename)
@@ -78,9 +77,11 @@ class Url(models.Model):
     url=models.URLField(max_length=3000)    
 
 
-
-
-
+class LoggedInUser(models.Model):
+    user=models.OneToOneField(settings.AUTH_USER_MODEL,related_name='logged_in_user',on_delete=models.CASCADE)
+    session_key=models.CharField(max_length=32,blank=True,null=True)
+    def __str__(self):
+        return self.user.name
     
 
 

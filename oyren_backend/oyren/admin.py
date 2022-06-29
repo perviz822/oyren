@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from oyren.models import( NewUser,Class,File)
+from oyren.models import( NewUser,Class,File,LoggedInUser)
 from django.forms import Textarea
 
 from oyren.models import Request
@@ -34,6 +34,8 @@ admin.site.register(File)
 admin.site.register(Request)
 admin.site.register(Images)
 admin.site.register(Url)
+admin.site.register(LoggedInUser)
+
 
 
 # Register your models here.
