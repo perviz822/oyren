@@ -16,12 +16,6 @@ from rest_framework_simplejwt.views import(
 from django.contrib.auth import user_logged_in
 from oyren.models import LoggedInUser
 
-
-
-
-
-
-
 @api_view(['POST'])
 def register(request):
    print(request.data)
@@ -152,10 +146,6 @@ def delete_request(request):
     request_instance = Request.objects.get(requested_class=request.data['requested_class'],requesting_student=request.data['requesting_student'])
     request_instance.delete()
     return HttpResponse("Request deleted")
-
-
-
-
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def get_urls_of_class(request):
@@ -178,40 +168,11 @@ def log_out_student(request):
     LoggedInUser.objects.delete(id=request.data['user_id'])
     return HttpResponse("User is logged out")
 
-
-
-
-
 class MyTokenObtainPairView(TokenObtainPairView):
    serializer_class=MyTokenObtainPairSerializer
   
       
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
+  
 
 
 
